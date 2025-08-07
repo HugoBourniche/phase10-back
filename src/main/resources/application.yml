@@ -1,0 +1,8 @@
+
+spring:
+  application:
+    name: Phase 10 Tool
+
+server:
+  port: 9010
+
