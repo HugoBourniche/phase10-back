@@ -1,5 +1,7 @@
 package fr.bugo.games.tool.Phase10.controller;
 
+import fr.bugo.games.tool.Phase10.services.PhaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 @RequestMapping("/phase10")
 public class Phase10Controller {
+
+    // *****************************************************************************************************************
+    // SERVICES
+    // *****************************************************************************************************************
+
+    @Autowired
+    private PhaseService phaseService;
+
+    // *****************************************************************************************************************
+    // GET REQUESTS
+    // *****************************************************************************************************************
 
     @GetMapping("/info")
     public ResponseEntity<String> info() {
