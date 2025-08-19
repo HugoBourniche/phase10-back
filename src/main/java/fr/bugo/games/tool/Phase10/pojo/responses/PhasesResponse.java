@@ -2,10 +2,12 @@ package fr.bugo.games.tool.Phase10.pojo.responses;
 
 import fr.bugo.games.tool.Phase10.pojo.dto.PhaseDTO;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.List;
 
+@Getter
 @AllArgsConstructor
 public class PhasesResponse implements Serializable {
 
