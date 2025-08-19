@@ -1,5 +1,6 @@
 package fr.bugo.games.tool.Phase10.services;
 
+import fr.bugo.games.tool.Phase10.TestcontainersConfiguration;
 import fr.bugo.games.tool.Phase10.exception.CantBuildPhasePartException;
 import fr.bugo.games.tool.Phase10.pojo.model.BuildingPhaseState;
 import fr.bugo.games.tool.Phase10.pojo.model.EPhasePartType;
@@ -9,9 +10,11 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 
 import java.util.Random;
 
+@Import(TestcontainersConfiguration.class)
 @SpringBootTest
 public class PhasePartServiceTest {
 

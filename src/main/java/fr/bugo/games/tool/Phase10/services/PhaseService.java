@@ -30,6 +30,14 @@ public class PhaseService {
     // PUBLIC METHODS
     // *****************************************************************************************************************
 
+    public List<Phase> buildPhases(long randomSeed, int nbPhases) throws CantBuildPhasePartException {
+        List<Phase> phases = new ArrayList<>();
+        for (int i = 0; i < nbPhases; i++) {
+            phases.add(buildPhase(randomSeed));
+        }
+        return phases;
+    }
+
     public Phase buildPhase(long randomSeed) throws CantBuildPhasePartException {
         Random random = new Random(randomSeed);
         Phase phase = new Phase();
