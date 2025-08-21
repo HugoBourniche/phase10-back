@@ -30,6 +30,14 @@ public class PhasePartService {
     // PUBLIC METHODS
     // *****************************************************************************************************************
 
+    /**
+     * Build a part of phase. Depending on the number of cards requested, build a type of part.
+     * @param random Random object already created
+     * @param nbCards Number of cards to put into the part
+     * @param state State of the current phase
+     * @return A PhasePart object fully built
+     * @throws CantBuildPhasePartException where there a no PhasePartType compatible with the number of cards requested.
+     */
     public PhasePart buildPart(Random random, int nbCards, BuildingPhaseState state) throws CantBuildPhasePartException {
         List<EPhasePartType> partPossibilities = new ArrayList<>(Arrays.stream(EPhasePartType.values()).toList());
         if (!canBuildColorPart(nbCards)) {
@@ -56,15 +64,26 @@ public class PhasePartService {
     // PRIVATE METHODS
     // *****************************************************************************************************************
 
-    private PhasePart buildColorPart(int nbCards, int existingPhaseWithColor) {
+    /**
+     * Create PhasePart object with the cards related to the color type
+     * @param nbCards Integer Number of cards to put into the part
+     * @param existingPartWithColor Number of part already containing colors
+     * @return PhasePart object built in
+     */
+    private PhasePart buildColorPart(int nbCards, int existingPartWithColor) {
         List<Card> cards = new ArrayList<>();
         for (int index = 0; index < nbCards; index++) {
-            EColor color = EColor.values()[existingPhaseWithColor];
+            EColor color = EColor.values()[existingPartWithColor];
             cards.add(new Card(color, ENumber.NONE));
         }
         return new PhasePart(cards, EPhasePartType.COLOR);
     }
 
+    /**
+     * Create PhasePart object with the cards related to the run type
+     * @param nbCards Integer Number of cards to put into the part
+     * @return PhasePart object built in
+     */
     private PhasePart buildRunPart(int nbCards) {
         List<Card> cards = new ArrayList<>();
         for (int index = 0; index < nbCards; index++) {
@@ -74,10 +93,16 @@ public class PhasePartService {
         return new PhasePart(cards, EPhasePartType.RUN);
     }
 
-    private PhasePart buildSetPart(int nbCards, int existingPhasesWithSet) {
+    /**
+     * Create PhasePart object with the cards related to the set type
+     * @param nbCards Integer Number of cards to put into the part
+     * @param existingPartsWithSet Number of part already containing sets
+     * @return PhasePart object built in
+     */
+    private PhasePart buildSetPart(int nbCards, int existingPartsWithSet) {
         List<Card> cards = new ArrayList<>();
         for (int index = 0; index < nbCards; index++) {
-            ENumber number = ENumber.values()[existingPhasesWithSet];
+            ENumber number = ENumber.values()[existingPartsWithSet];
             cards.add(new Card(EColor.WILD, number));
         }
         return new PhasePart(cards, EPhasePartType.SET);

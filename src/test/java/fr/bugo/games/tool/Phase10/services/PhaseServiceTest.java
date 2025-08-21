@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+import java.util.List;
+
 @Import(TestcontainersConfiguration.class)
 @SpringBootTest
 public class PhaseServiceTest {
@@ -18,7 +20,9 @@ public class PhaseServiceTest {
 
     @Test
     public void buildPhaseTest() throws CantBuildPhasePartException {
-        Phase phase = phaseService.buildPhase(5550713716636528509L);
-        Assertions.assertFalse(phase.getParts().isEmpty());
+        List<Phase> phase = phaseService.buildPhases(5550713716636528509L, 1);
+
+        Assertions.assertEquals(1, phase.size());
+        Assertions.assertFalse(phase.getFirst().getParts().isEmpty());
     }
 }

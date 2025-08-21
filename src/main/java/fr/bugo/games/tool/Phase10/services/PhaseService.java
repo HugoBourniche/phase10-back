@@ -30,16 +30,35 @@ public class PhaseService {
     // PUBLIC METHODS
     // *****************************************************************************************************************
 
+    /**
+     * Build a number of phases with randomness built from a seed
+     * @param randomSeed long number to put into the random object
+     * @param nbPhases Number of phases object to build
+     * @return List of phases to do
+     * @throws CantBuildPhasePartException when there are errors during the phase building
+     */
     public List<Phase> buildPhases(long randomSeed, int nbPhases) throws CantBuildPhasePartException {
         List<Phase> phases = new ArrayList<>();
+        Random random = new Random(randomSeed);
         for (int i = 0; i < nbPhases; i++) {
-            phases.add(buildPhase(randomSeed));
+            Phase phase = buildPhase(random);
+            // Ensure unicity of each phase
+            if (hasAlreadyThePhase(phases, phase)) {
+                i--;
+            } else {
+                phases.add(buildPhase(random));
+            }
         }
         return phases;
     }
 
-    public Phase buildPhase(long randomSeed) throws CantBuildPhasePartException {
-        Random random = new Random(randomSeed);
+    /**
+     * Build phase part. Pick random number of cards and build phases with this number.
+     * @param random Random object already built
+     * @return Phase object
+     * @throws CantBuildPhasePartException when there are errors with the building part
+     */
+    public Phase buildPhase(Random random) throws CantBuildPhasePartException {
         Phase phase = new Phase();
         int nbCardsInPhase = MathUtils.randomInt(random, MIN_CARDS, MAX_CARDS);
         List<Integer> partsToBuild = divideCardIntoPhaseParts(random, nbCardsInPhase);
@@ -73,13 +92,37 @@ public class PhaseService {
      */
     private List<Integer> divideCardIntoPhaseParts(Random random, int nbCardsRemaining) {
         List<Integer> parts = new ArrayList<>();
-        int nbCardsInPart = MathUtils.randomInt(random, 2, nbCardsRemaining);
-        parts.add(nbCardsInPart);
-        int remainingCards = nbCardsRemaining - nbCardsInPart;
-        if (MathUtils.runChance(random, DISPATCH_CARDS_PROBABILITY_CHANCE.get(remainingCards))) {
-            parts.addAll(divideCardIntoPhaseParts(random, remainingCards));
+        int nbCardsInPart = nbCardsRemaining;
+        if (MathUtils.runChance(random, DISPATCH_CARDS_PROBABILITY_CHANCE.get(nbCardsRemaining))) {
+            nbCardsInPart = MathUtils.randomInt(random, 2, nbCardsRemaining);
+            parts.addAll(divideCardIntoPhaseParts(random, nbCardsRemaining - nbCardsInPart));
         }
+        parts.add(nbCardsInPart);
         return parts;
     }
 
+    /**
+     * Check if the Phase toCompare is already in the list of phases
+     * @param phases List of phases to check into
+     * @param toCompare Phase to compare with others
+     * @return The list of phases contains or not the phase
+     */
+    private boolean hasAlreadyThePhase(List<Phase> phases, Phase toCompare) {
+        for (Phase phase : phases) {
+            if (toCompare.getParts().size() != phase.getParts().size()) {
+                continue;
+            }
+
+            for (int index = 0; index < toCompare.getParts().size(); index++) {
+                PhasePart toComparePart = toCompare.getParts().get(index);
+                PhasePart part = phase.getParts().get(index);
+                if (toComparePart.getCards().size() == part.getCards().size()) {
+                    if (toComparePart.getPhaseType().equals(part.getPhaseType())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
