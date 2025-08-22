@@ -46,7 +46,7 @@ public class PhaseService {
             if (hasAlreadyThePhase(phases, phase)) {
                 i--;
             } else {
-                phases.add(buildPhase(random));
+                phases.add(phase);
             }
         }
         return phases;
@@ -94,7 +94,7 @@ public class PhaseService {
         List<Integer> parts = new ArrayList<>();
         int nbCardsInPart = nbCardsRemaining;
         if (MathUtils.runChance(random, DISPATCH_CARDS_PROBABILITY_CHANCE.get(nbCardsRemaining))) {
-            nbCardsInPart = MathUtils.randomInt(random, 2, nbCardsRemaining);
+            nbCardsInPart = MathUtils.randomInt(random, 2, nbCardsRemaining - 2);
             parts.addAll(divideCardIntoPhaseParts(random, nbCardsRemaining - nbCardsInPart));
         }
         parts.add(nbCardsInPart);

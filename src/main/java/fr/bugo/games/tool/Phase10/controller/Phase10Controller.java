@@ -59,6 +59,7 @@ public class Phase10Controller {
         try {
             phases = phaseService.buildPhases(seed, numberPhases);
         } catch (CantBuildPhasePartException e) {
+            LOGGER.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         List<PhaseDTO> phasesDTO = ConvertDataToDTO.convertPhases(phases);
