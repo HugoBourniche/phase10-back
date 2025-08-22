@@ -54,7 +54,7 @@ public class Phase10Controller {
     public ResponseEntity<?> phases(@RequestParam Integer numberPhases) {
         LOGGER.info("phase10/phases?numberPhases={} called", numberPhases);
         Random random = new Random();
-        long seed = 7834664765466812985L; // random.nextLong();
+        long seed = random.nextLong();
         LOGGER.info("Seed {} generated", seed);
         List<Phase> phases;
         try {
