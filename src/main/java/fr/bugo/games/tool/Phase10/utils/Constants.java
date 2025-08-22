@@ -5,6 +5,9 @@ import java.util.Map;
 
 public class Constants {
 
+    public static Integer MINIMUM_PHASES = 1;
+    public static Integer MAXIMUM_PHASES = 30;
+
     public static Integer MIN_CARDS = 5;
     public static Integer MAX_CARDS = 10;
 

@@ -1,6 +1,7 @@
 package fr.bugo.games.tool.Phase10.services;
 
 import fr.bugo.games.tool.Phase10.exception.CantBuildPhasePartException;
+import fr.bugo.games.tool.Phase10.exception.NumberPhasesConsistencyException;
 import fr.bugo.games.tool.Phase10.pojo.model.BuildingPhaseState;
 import fr.bugo.games.tool.Phase10.pojo.model.Phase;
 import fr.bugo.games.tool.Phase10.pojo.model.PhasePart;
@@ -13,7 +14,9 @@ import java.util.List;
 import java.util.Random;
 
 import static fr.bugo.games.tool.Phase10.utils.Constants.DISPATCH_CARDS_PROBABILITY_CHANCE;
+import static fr.bugo.games.tool.Phase10.utils.Constants.MAXIMUM_PHASES;
 import static fr.bugo.games.tool.Phase10.utils.Constants.MAX_CARDS;
+import static fr.bugo.games.tool.Phase10.utils.Constants.MINIMUM_PHASES;
 import static fr.bugo.games.tool.Phase10.utils.Constants.MIN_CARDS;
 
 @Service
@@ -37,7 +40,10 @@ public class PhaseService {
      * @return List of phases to do
      * @throws CantBuildPhasePartException when there are errors during the phase building
      */
-    public List<Phase> buildPhases(long randomSeed, int nbPhases) throws CantBuildPhasePartException {
+    public List<Phase> buildPhases(long randomSeed, int nbPhases) throws CantBuildPhasePartException, NumberPhasesConsistencyException {
+        if ( MINIMUM_PHASES > nbPhases || nbPhases > MAXIMUM_PHASES) {
+            throw new NumberPhasesConsistencyException(nbPhases);
+        }
         List<Phase> phases = new ArrayList<>();
         Random random = new Random(randomSeed);
         for (int i = 0; i < nbPhases; i++) {

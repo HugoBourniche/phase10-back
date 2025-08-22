@@ -2,7 +2,7 @@ package fr.bugo.games.tool.Phase10.controller;
 
 import fr.bugo.games.tool.Phase10.convertor.ConvertDataToDTO;
 import fr.bugo.games.tool.Phase10.exception.CantBuildPhasePartException;
-import fr.bugo.games.tool.Phase10.exception.TooMuchPhasesException;
+import fr.bugo.games.tool.Phase10.exception.NumberPhasesConsistencyException;
 import fr.bugo.games.tool.Phase10.pojo.dto.PhaseDTO;
 import fr.bugo.games.tool.Phase10.pojo.model.Phase;
 import fr.bugo.games.tool.Phase10.pojo.responses.PhasesResponse;
@@ -51,11 +51,8 @@ public class Phase10Controller {
     }
 
     @GetMapping("/phases")
-    public ResponseEntity<PhasesResponse> phases(@RequestParam Integer numberPhases) throws TooMuchPhasesException {
+    public ResponseEntity<?> phases(@RequestParam Integer numberPhases) {
         LOGGER.info("phase10/phases?numberPhases={} called", numberPhases);
-        if (numberPhases > 30) {
-            throw new TooMuchPhasesException(numberPhases);
-        }
         Random random = new Random();
         long seed = 7834664765466812985L; // random.nextLong();
         LOGGER.info("Seed {} generated", seed);
@@ -65,6 +62,8 @@ public class Phase10Controller {
         } catch (CantBuildPhasePartException e) {
             LOGGER.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (NumberPhasesConsistencyException e) {
+            return new ResponseEntity<>("Il faut entrer un nombre entre 1 et 30: " + numberPhases, HttpStatus.FORBIDDEN);
         }
         List<PhaseDTO> phasesDTO = ConvertDataToDTO.convertPhases(phases);
         PhasesResponse response = new PhasesResponse(phasesDTO);

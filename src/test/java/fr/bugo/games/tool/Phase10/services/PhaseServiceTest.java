@@ -2,6 +2,7 @@ package fr.bugo.games.tool.Phase10.services;
 
 import fr.bugo.games.tool.Phase10.TestcontainersConfiguration;
 import fr.bugo.games.tool.Phase10.exception.CantBuildPhasePartException;
+import fr.bugo.games.tool.Phase10.exception.NumberPhasesConsistencyException;
 import fr.bugo.games.tool.Phase10.pojo.model.Phase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class PhaseServiceTest {
     private PhaseService phaseService;
 
     @Test
-    public void buildPhaseTest() throws CantBuildPhasePartException {
+    public void buildPhaseTest() throws CantBuildPhasePartException, NumberPhasesConsistencyException {
         // 7834664765466812985L
         List<Phase> phase = phaseService.buildPhases(5550713716636528509L, 1);
 
