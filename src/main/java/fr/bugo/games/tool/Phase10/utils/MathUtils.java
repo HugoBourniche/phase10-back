@@ -27,7 +27,7 @@ public class MathUtils {
      * @return True if the number is below or equal to the probability
      */
     public static boolean runChance(Random random, int probability) {
-        return MathUtils.randomInt(random, 0, 100) <= probability;
+        return MathUtils.randomInt(random, 1, 100) <= probability;
     }
 
     /**

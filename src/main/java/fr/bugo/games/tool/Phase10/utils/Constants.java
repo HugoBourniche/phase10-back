@@ -22,11 +22,11 @@ public class Constants {
         put(1, 0);
         put(2, 0);
         put(3, 0);
-        put(4, 10);
-        put(5, 15);
-        put(6, 20);
-        put(7, 30);
-        put(8, 50);
+        put(4, 0);
+        put(5, 10);
+        put(6, 15);
+        put(7, 25);
+        put(8, 40);
         put(9, 60);
         put(10, 70);
     }};
