@@ -1,5 +1,7 @@
 package fr.bugo.games.tool.Phase10.utils;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,4 +35,6 @@ public class Constants {
         put(9, 60);
         put(10, 70);
     }};
+
+    public static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 }
