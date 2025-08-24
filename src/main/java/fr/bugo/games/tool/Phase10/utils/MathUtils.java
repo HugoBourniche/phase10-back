@@ -55,4 +55,16 @@ public class MathUtils {
         return lowerBound <= value && value <= upperBound;
     }
 
+    // *****************************************************************************************************************
+    // STRING UTILS
+    // *****************************************************************************************************************
+
+    /**
+     * Convert String to long using hashcode
+     * @param seed String to convert
+     * @return Long value
+     */
+    public static long convertToLong(String seed) {
+        return 31L * seed.hashCode();
+    }
 }
