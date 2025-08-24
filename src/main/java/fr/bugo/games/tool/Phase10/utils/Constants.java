@@ -36,5 +36,6 @@ public class Constants {
         put(10, 70);
     }};
 
+    public static String DEFAULT_SEED = "default";
     public static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 }

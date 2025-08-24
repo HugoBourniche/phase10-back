@@ -3,6 +3,10 @@ package fr.bugo.games.tool.Phase10.services;
 import fr.bugo.games.tool.Phase10.exception.CantBuildPhasePartException;
 import fr.bugo.games.tool.Phase10.exception.NumberPhasesConsistencyException;
 import fr.bugo.games.tool.Phase10.pojo.model.BuildingPhaseState;
+import fr.bugo.games.tool.Phase10.pojo.model.Card;
+import fr.bugo.games.tool.Phase10.pojo.model.EColor;
+import fr.bugo.games.tool.Phase10.pojo.model.ENumber;
+import fr.bugo.games.tool.Phase10.pojo.model.EPhasePartType;
 import fr.bugo.games.tool.Phase10.pojo.model.Phase;
 import fr.bugo.games.tool.Phase10.pojo.model.PhasePart;
 import fr.bugo.games.tool.Phase10.utils.MathUtils;
@@ -86,6 +90,152 @@ public class PhaseService {
 //        return complexity;
 //    }
 
+
+    /**
+     * Build default phases from original game
+     * @return List of base game phases.
+     */
+    public List<Phase> buildDefaultPhases() {
+        Phase p1 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B)
+                )
+        );
+
+        Phase p2 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.RUN,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.C),
+                        new Card(EColor.WILD, ENumber.D)
+                )
+        );
+
+        Phase p3 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.RUN,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.C),
+                        new Card(EColor.WILD, ENumber.D)
+                )
+        );
+
+        Phase p4 = createPhase(
+                createPhasePart(EPhasePartType.RUN,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.C),
+                        new Card(EColor.WILD, ENumber.D),
+                        new Card(EColor.WILD, ENumber.E),
+                        new Card(EColor.WILD, ENumber.F),
+                        new Card(EColor.WILD, ENumber.G)
+                )
+        );
+
+        Phase p5 = createPhase(
+                createPhasePart(EPhasePartType.RUN,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.C),
+                        new Card(EColor.WILD, ENumber.D),
+                        new Card(EColor.WILD, ENumber.E),
+                        new Card(EColor.WILD, ENumber.F),
+                        new Card(EColor.WILD, ENumber.G),
+                        new Card(EColor.WILD, ENumber.H)
+                )
+        );
+
+        Phase p6 = createPhase(
+                createPhasePart(EPhasePartType.RUN,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.C),
+                        new Card(EColor.WILD, ENumber.D),
+                        new Card(EColor.WILD, ENumber.E),
+                        new Card(EColor.WILD, ENumber.F),
+                        new Card(EColor.WILD, ENumber.G),
+                        new Card(EColor.WILD, ENumber.H),
+                        new Card(EColor.WILD, ENumber.I)
+                )
+        );
+
+        Phase p7 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B)
+                )
+        );
+
+
+        Phase p8 = createPhase(
+                createPhasePart(EPhasePartType.COLOR,
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE),
+                        new Card(EColor.RED, ENumber.NONE)
+                )
+        );
+
+        Phase p9 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B)
+                )
+        );
+
+        Phase p10 = createPhase(
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A),
+                        new Card(EColor.WILD, ENumber.A)
+                ),
+                createPhasePart(EPhasePartType.SET,
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B),
+                        new Card(EColor.WILD, ENumber.B)
+                )
+        );
+
+        return List.of(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
+    }
+
     // *****************************************************************************************************************
     // PRIVATE METHODS
     // *****************************************************************************************************************
@@ -131,4 +281,21 @@ public class PhaseService {
         }
         return false;
     }
+
+    // Default phase builder utils
+
+    private Phase createPhase(PhasePart... parts) {
+        Phase phase = new Phase();
+        phase.setParts(List.of(parts));
+        return phase;
+    }
+
+    private PhasePart createPhasePart(EPhasePartType type, Card... cards) {
+        PhasePart part = new PhasePart();
+        part.setPhaseType(type);
+        part.setCards(List.of(cards));
+        return part;
+    }
+
+
 }

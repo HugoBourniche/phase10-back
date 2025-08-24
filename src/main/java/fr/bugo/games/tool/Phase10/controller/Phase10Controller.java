@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 import static fr.bugo.games.tool.Phase10.utils.Constants.DATE_FORMAT;
+import static fr.bugo.games.tool.Phase10.utils.Constants.DEFAULT_SEED;
 
 
 @RestController
@@ -59,15 +60,19 @@ public class Phase10Controller {
         if (seed == null) {
             seed = DATE_FORMAT.format(new Date());
         }
-        long seedLong = MathUtils.convertToLong(seed);
         List<Phase> phases;
-        try {
-            phases = phaseService.buildPhases(seedLong, numberPhases);
-        } catch (CantBuildPhasePartException e) {
-            LOGGER.error(e.getMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (NumberPhasesConsistencyException e) {
-            return new ResponseEntity<>("Il faut entrer un nombre entre 1 et 30: " + numberPhases, HttpStatus.FORBIDDEN);
+        if (seed.equals(DEFAULT_SEED)) {
+            phases = phaseService.buildDefaultPhases();
+        } else {
+            try {
+                long seedLong = MathUtils.convertToLong(seed);
+                phases = phaseService.buildPhases(seedLong, numberPhases);
+            } catch (CantBuildPhasePartException e) {
+                LOGGER.error(e.getMessage());
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (NumberPhasesConsistencyException e) {
+                return new ResponseEntity<>("Il faut entrer un nombre entre 1 et 30: " + numberPhases, HttpStatus.FORBIDDEN);
+            }
         }
         List<PhaseDTO> phasesDTO = ConvertDataToDTO.convertPhases(phases);
         PhasesResponse response = new PhasesResponse(phasesDTO);
