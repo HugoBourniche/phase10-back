@@ -1,5 +1,7 @@
 package fr.bugo.games.tool.Phase10.utils;
 
+import fr.bugo.games.tool.Phase10.pojo.model.EPhasePartType;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -34,6 +36,37 @@ public class Constants {
         put(8, 40);
         put(9, 60);
         put(10, 70);
+    }};
+
+    public static Map<EPhasePartType, Map<Integer, Integer>> PHASE_COMPLEXITY_PER_TYPE_AND_NB_CARDS = new HashMap<>() {{
+        put(EPhasePartType.COLOR, new HashMap<>() {{
+            put(3, 0); // 24
+            put(4, 1);
+            put(5, 3);
+            put(6, 3);
+            put(7, 4);
+            put(8, 5);
+            put(9, 6);
+            put(10, 8);
+        }});
+        put(EPhasePartType.RUN, new HashMap<>() {{
+            put(4, 1); // ?
+            put(5, 2);
+            put(6, 3);
+            put(7, 4);
+            put(8, 5);
+            put(9, 6);
+            put(10, 6);
+        }});
+        put(EPhasePartType.SET, new HashMap<>() {{
+            put(2, 1); // 8
+            put(3, 3);
+            put(4, 5);
+            put(5, 6);
+            put(6, 8);
+            put(7, 9);
+            put(8, 10);
+        }});
     }};
 
     public static String DEFAULT_SEED = "default";
