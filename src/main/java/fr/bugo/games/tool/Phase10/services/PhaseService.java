@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static fr.bugo.games.tool.Phase10.utils.Constants.DISPATCH_CARDS_PROBABILITY_CHANCE;
@@ -22,6 +25,7 @@ import static fr.bugo.games.tool.Phase10.utils.Constants.MAXIMUM_PHASES;
 import static fr.bugo.games.tool.Phase10.utils.Constants.MAX_CARDS;
 import static fr.bugo.games.tool.Phase10.utils.Constants.MINIMUM_PHASES;
 import static fr.bugo.games.tool.Phase10.utils.Constants.MIN_CARDS;
+import static fr.bugo.games.tool.Phase10.utils.Constants.PHASE_COMPLEXITY_PER_TYPE_AND_NB_CARDS;
 
 @Service
 public class PhaseService {
@@ -59,7 +63,8 @@ public class PhaseService {
                 phases.add(phase);
             }
         }
-        return phases;
+
+        return sortPhasesByComplexity(phases);
     }
 
     /**
@@ -80,16 +85,6 @@ public class PhaseService {
         }
         return phase;
     }
-
-//    public int computePhaseComplexity(Phase phase) {
-//        int complexity = 0;
-//
-//        for (Card card : phase.getCards()) {
-//
-//        }
-//        return complexity;
-//    }
-
 
     /**
      * Build default phases from original game
@@ -280,6 +275,37 @@ public class PhaseService {
             }
         }
         return false;
+    }
+
+    // Complexity
+
+    private List<Phase> sortPhasesByComplexity(List<Phase> phases) {
+        Map<Integer, List<Phase>> mapPhasesByComplexity = new HashMap<>();
+        for (Phase phase : phases) {
+            int complexity = computePhaseComplexity(phase);
+            List<Phase> sortedPhases = new ArrayList<>();
+            if (mapPhasesByComplexity.containsKey(complexity)) {
+                sortedPhases = mapPhasesByComplexity.get(complexity);
+            }
+            sortedPhases.add(phase);
+            mapPhasesByComplexity.put(complexity, sortedPhases);
+        }
+        List<Phase> result = new ArrayList<>();
+        for (Integer complexity : mapPhasesByComplexity.keySet().stream().sorted().toList()) {
+            mapPhasesByComplexity.get(complexity).sort(Comparator.comparingInt(a -> a.getParts().size()));
+            result.addAll(mapPhasesByComplexity.get(complexity));
+        }
+        return result;
+    }
+
+    private int computePhaseComplexity(Phase phase) {
+        int complexity = 0;
+        for (PhasePart part : phase.getParts()) {
+            int nbCards = part.getCards().size();
+            complexity += nbCards;
+            complexity += PHASE_COMPLEXITY_PER_TYPE_AND_NB_CARDS.get(part.getPhaseType()).get(nbCards);
+        }
+        return complexity;
     }
 
     // Default phase builder utils
