@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>fr.bugo.games.tool</groupId>
 	<artifactId>Phase10-back</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>Phase10</name>
 	<description>Phase 10 tool to build phases ideas</description>
 	<url/>
