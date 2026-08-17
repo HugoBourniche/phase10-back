@@ -16,13 +16,13 @@ public class Constants {
     public static Integer MAX_CARDS = 10;
 
     public static Integer MINIMUM_SET = 2;
-    public static Integer MAXIMUM_SET = 8; // Too much ?
+    public static Integer MAXIMUM_SET = 7;
 
     public static Integer MINIMUM_RUN = 4;
     public static Integer MAXIMUM_RUN = 10;
 
     public static Integer MINIMUM_COLOR = 3;
-    public static Integer MAXIMUM_COLOR = 10;
+    public static Integer MAXIMUM_COLOR = 9;
 
     public static Map<Integer, Integer> DISPATCH_CARDS_PROBABILITY_CHANCE = new HashMap<>() {{
         put(0, 0);
